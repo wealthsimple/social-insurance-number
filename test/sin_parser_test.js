@@ -56,7 +56,6 @@ describe('SinParser', function() {
       _.each(validSins, function(input) {
         var sin = SinParser.parse(input);
         expect(sin.valid).to.equal(true);
-        expect(sin.error).to.equal(null);
         expect(sin.value).to.equal("130692544");
         expect(sin.provinces).to.eql(['NB', 'NF', 'NS', 'PE']);
         expect(sin.temporary_resident).to.equal(false);
@@ -66,10 +65,9 @@ describe('SinParser', function() {
     it("sets temporary_resident to `true` for a temporary resident", function() {
       var sin = SinParser.parse("918 640 897");
       expect(sin.valid).to.equal(true);
-        expect(sin.error).to.equal(null);
-        expect(sin.value).to.equal("918640897");
-        expect(sin.provinces).to.eql([]);
-        expect(sin.temporary_resident).to.equal(true);
+      expect(sin.value).to.equal("918640897");
+      expect(sin.provinces).to.eql([]);
+      expect(sin.temporary_resident).to.equal(true);
     });
   });
 });

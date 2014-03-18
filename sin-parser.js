@@ -27,7 +27,6 @@
     return {
       valid: true,
       value: sin,
-      error: null,
       provinces: this._provinces(sin),
       temporary_resident: this._isTemporaryResident(sin)
     };
@@ -67,10 +66,7 @@
   SinParser._errorObject = function(message) {
     return {
       valid: false,
-      value: null,
-      error: message,
-      provinces: [],
-      temporary_resident: null
+      error: message
     };
   };
 
