@@ -1,0 +1,7 @@
+{
+  "name": "sin-parser",
+  "version": "0.0.1",
+  "description": "Canadian SIN (Social Insurance Number) parser",
+  "main": "sin-parser.js",
+  "license": "MIT"
+}
