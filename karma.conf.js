@@ -75,13 +75,7 @@ module.exports = function(config) {
 
   preprocessors : {
     //    '**/client/js/*.js': 'coverage'
-  },
-
-  plugins : [
-    'karma-mocha',
-    'karma-phantomjs-launcher',
-    'karma-spec-reporter'
-  ]
+  }
 
   // your config
   });
