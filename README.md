@@ -1,6 +1,6 @@
-# sin-parser [![Build Status](https://api.travis-ci.org/wealthsimple/sin-parser.png?branch=master)](https://travis-ci.org/wealthsimple/sin-parser)
+# sin-parser [![Build Status](https://api.travis-ci.org/wealthsimple/sin-parser.png?branch=master)](https://travis-ci.org/wealthsimple/sin-parser) [![Code Climate](https://codeclimate.com/github/wealthsimple/sin-parser/badges/gpa.svg)](https://codeclimate.com/github/wealthsimple/sin-parser)
 
-`sin-parser` is a Canadian SIN (Social Insurance Number) parser and format validator.
+`sin-parser` is a Canadian SIN (Social Insurance Number) parser and format validator. Note: this is only meant to be used for client-side validation purposes.
 
 Example usage:
 

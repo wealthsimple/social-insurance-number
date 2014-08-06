@@ -2,25 +2,25 @@
   var SinParser = function() {};
 
   SinParser.parse = function(sin) {
-    var isString = Object.prototype.toString.call(sin) == "[object String]";
+    var isString = Object.prototype.toString.call(sin) === "[object String]";
     if (!isString) {
       return this._errorObject("Invalid SIN input provided");
     }
 
     sin = sin.replace(/[^\d\.]/g, "");
-    if (sin.length != 9) {
+    if (sin.length !== 9) {
       return this._errorObject("SIN must be 9 digits long");
     }
 
     var digits = [],
         sinDigits = sin.split("");
     for(var i = 0; i < sinDigits.length; i++) {
-      var digit = parseInt(sinDigits[i]);
+      var digit = parseInt(sinDigits[i], 10);
       digit *= i % 2 === 0 ? 1 : 2;
       digits.push(this._digitalRoot(digit));
     }
 
-    sum = digits.reduce(function(a, b) { return a + b; });
+    var sum = digits.reduce(function(a, b) { return a + b; });
     if (sum % 10 !== 0) {
       return this._errorObject("SIN format is invalid");
     }
@@ -39,7 +39,7 @@
   */
   SinParser._digitalRoot = function(num) {
     var digits = String(num).split("");
-    digits = digits.map(function(d) { return parseInt(d); });
+    digits = digits.map(function(d) { return parseInt(d, 10); });
     return digits.reduce(function(a, b) { return a + b; });
   };
 
@@ -60,7 +60,7 @@
   };
 
   SinParser._isTemporaryResident = function(sin) {
-    return sin.substring(0, 1) == "9";
+    return sin.substring(0, 1) === "9";
   };
 
   SinParser._errorObject = function(message) {
