@@ -29,17 +29,8 @@
     if (sin.length !== SIN_LENGTH) {
       return errorObject("SIN must be 9 digits long");
     }
-
-    var digits = [],
-        sinDigits = sin.split("");
-    for(var i = 0; i < sinDigits.length; i++) {
-      var digit = parseInt(sinDigits[i], 10);
-      digit *= i % 2 === 0 ? 1 : 2;
-      digits.push(digitalRoot(digit));
-    }
-
-    var sum = digits.reduce(function(a, b) { return a + b; });
-    if (sum % 10 !== 0) {
+    var checksum = luhnChecksum(sin);
+    if (checksum % 10 !== 0) {
       return errorObject("SIN format is invalid");
     }
     return {
@@ -66,33 +57,27 @@
     return sinArray.join("");
   }
 
-  // `partialSin` contains first 8 digits of the SIN for which to calculate check digit.
-  var checkDigit = function(partialSin) {
-    var reversedSin = partialSin.slice().reverse(),
-        position = 0,
+  // Fast Luhn checksum code from luhn.js:
+  // https://gist.github.com/ShirtlessKirk/2134376
+  var luhnChecksum = function(sin) {
+    var len = SIN_LENGTH,
+        mul = 0,
+        luhnArr = [
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]
+        ],
         sum = 0;
-    while(position < (SIN_LENGTH - 1)) {
-      var odd = reversedSin[position] * 2;
-      if (odd > SIN_LENGTH) {
-        odd -= SIN_LENGTH;
-      }
-      sum += odd;
-      if (position !== (SIN_LENGTH - 2)) {
-        sum += reversedSin[position + 1];
-      }
-      position += 2;
+    while (len--) {
+        sum += luhnArr[mul][parseInt(sin.charAt(len), 10)];
+        mul ^= 1;
     }
-    return ((Math.floor(sum / 10) + 1) * 10 - sum) % 10;
+    return sum % 10;
   };
 
-  /*
-    Returns the sum of digits in number.
-    e.g. 162 -> 1+6+2 -> 9
-  */
-  var digitalRoot = function(num) {
-    var digits = String(num).split("");
-    digits = digits.map(function(d) { return parseInt(d, 10); });
-    return digits.reduce(function(a, b) { return a + b; });
+  // `partialSin` has first 8 digits of the SIN for which to calculate check digit.
+  var checkDigit = function(partialSin) {
+    var checksum = luhnChecksum(partialSin.join("") + "0");
+    return checksum % 10 === 0 ? 0 : 10 - checksum;
   };
 
   var provincesForSIN = function(sin) {
