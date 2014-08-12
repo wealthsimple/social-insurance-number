@@ -43,13 +43,13 @@
 
   var generate = function(options) {
     options = options || {};
-    var firstDigit = options.firstDigit;
-    if (!firstDigit) {
+    var startsWith = options.startsWith;
+    if (!startsWith) {
       var province = options.province || randomChoice(Object.keys(PROVINCES));
-      firstDigit = randomChoice(PROVINCES[province]);
+      startsWith = randomChoice(PROVINCES[province]);
     }
-    var sinArray = [firstDigit];
-    // Generate the next 7 digits randomly
+    var sinArray = String(startsWith).substring(0, (SIN_LENGTH - 1)).split("");
+    // Generate the next digits randomly
     while(sinArray.length < (SIN_LENGTH - 1)) {
       sinArray.push(randomIntBetween(0, 9));
     }

@@ -51,6 +51,9 @@ SocialInsuranceNumber.generate()
 SocialInsuranceNumber.generate({province: "ON"});
 // Returns a random SIN associated with Ontario, e.g. "464679711"
 
-SocialInsuranceNumber.generate({firstDigit: 8});
+SocialInsuranceNumber.generate({startsWith: "8"});
 // Returns a random SIN starting with 8, e.g. "851157206"
+
+SocialInsuranceNumber.generate({startsWith: "12345"});
+// Returns a random SIN starting with 12345, e.g. "123453235"
 ```
