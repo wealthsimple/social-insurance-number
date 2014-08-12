@@ -16,6 +16,7 @@ var invalidSins = [
 var normalizedValidSin = "130692544";
 var validSins = [
   " 130 692 544 ",
+  "1 ..asdf.. 30692544",
   "130-692-544",
   normalizedValidSin
 ];

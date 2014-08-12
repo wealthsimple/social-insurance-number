@@ -39,7 +39,7 @@
   };
 
   SocialInsuranceNumber.prototype.normalizedValue = function() {
-    this._normalizedValue = this._normalizedValue || String(this.sin).replace(/[^\d\.]/g, "");
+    this._normalizedValue = this._normalizedValue || String(this.sin).replace(/[^\d]/g, "");
     return this._normalizedValue;
   };
 
