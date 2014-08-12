@@ -1,6 +1,6 @@
 # social-insurance-number [![Build Status](https://travis-ci.org/wealthsimple/social-insurance-number.svg)](https://travis-ci.org/wealthsimple/social-insurance-number) [![Code Climate](https://codeclimate.com/github/wealthsimple/social-insurance-number/badges/gpa.svg)](https://codeclimate.com/github/wealthsimple/social-insurance-number)
 
-`social-insurance-number` is a Canadian SIN (Social Insurance Number) parser and generator.
+`social-insurance-number` is a Canadian SIN (Social Insurance Number) parser and generator for the browser and Node.js.
 
 ## Parsing
 
