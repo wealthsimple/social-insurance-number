@@ -51,8 +51,7 @@
   };
 
   /*
-    For number < 10, returns the number.
-    For number >= 10, returns the sum of digits in number.
+    Returns the sum of digits in number.
     e.g. 162 -> 1+6+2 -> 9
   */
   var digitalRoot = function(num) {
