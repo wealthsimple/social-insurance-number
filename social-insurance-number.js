@@ -1,9 +1,9 @@
 (function(global) {
   var SocialInsuranceNumber = function() {};
 
-  SIN_LENGTH = 9;
+  var SIN_LENGTH = 9;
   // Map Canadian provinces to associated first SIN digits
-  PROVINCES = {
+  var PROVINCES = {
     "AB": [6],
     "BC": [7],
     "MB": [6],
@@ -55,7 +55,7 @@
     }
     sinArray.push(checkDigit(sinArray));
     return sinArray.join("");
-  }
+  };
 
   // Fast Luhn checksum code from luhn.js:
   // https://gist.github.com/ShirtlessKirk/2134376
@@ -68,8 +68,8 @@
         ],
         sum = 0;
     while (len--) {
-        sum += luhnArr[mul][parseInt(sin.charAt(len), 10)];
-        mul ^= 1;
+      sum += luhnArr[mul][parseInt(sin.charAt(len), 10)];
+      mul = mul ^ 1;
     }
     return sum % 10;
   };
@@ -81,7 +81,7 @@
   };
 
   var provincesForSIN = function(sin) {
-    var firstDigit = parseInt(sin.substring(0, 1));
+    var firstDigit = parseInt(sin.substring(0, 1), 10);
     var provinces = [];
     for(var province in PROVINCES) {
       if (PROVINCES[province].indexOf(firstDigit) >= 0) {
