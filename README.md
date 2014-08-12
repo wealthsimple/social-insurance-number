@@ -11,7 +11,7 @@ SocialInsuranceNumber.parse(" 130-692-544 ")
 // Returns:
 {
   valid: true,
-  value: "130692544",
+  normalizedValue: "130692544",
   provinces: ['NB', 'NF', 'NS', 'PE'],
   temporaryResident: false
 }
@@ -20,7 +20,7 @@ SocialInsuranceNumber.parse("918640897")
 // Returns:
 {
   valid: true,
-  value: "918640897",
+  normalizedValue: "918640897",
   provinces: [],
   temporaryResident: true
 }

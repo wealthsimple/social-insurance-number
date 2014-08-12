@@ -55,7 +55,7 @@ describe('SocialInsuranceNumber.parse', function() {
     _.each(validSins, function(input) {
       var sin = SocialInsuranceNumber.parse(input);
       expect(sin.valid).to.equal(true);
-      expect(sin.value).to.equal("130692544");
+      expect(sin.normalizedValue).to.equal("130692544");
       expect(sin.provinces).to.eql(['NB', 'NF', 'NS', 'PE']);
       expect(sin.temporaryResident).to.equal(false);
     });
@@ -64,7 +64,7 @@ describe('SocialInsuranceNumber.parse', function() {
   it("sets temporaryResident to `true` for a temporary resident", function() {
     var sin = SocialInsuranceNumber.parse("918 640 897");
     expect(sin.valid).to.equal(true);
-    expect(sin.value).to.equal("918640897");
+    expect(sin.normalizedValue).to.equal("918640897");
     expect(sin.provinces).to.eql([]);
     expect(sin.temporaryResident).to.equal(true);
   });

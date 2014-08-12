@@ -35,7 +35,7 @@
     }
     return {
       valid: true,
-      value: sin,
+      normalizedValue: sin,
       provinces: provincesForSIN(sin),
       temporaryResident: isTemporaryResident(sin)
     };
