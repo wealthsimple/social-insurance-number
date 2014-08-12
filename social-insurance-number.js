@@ -1,7 +1,6 @@
 (function(global) {
-  var SocialInsuranceNumber = function() {};
-
   var SIN_LENGTH = 9;
+  var TEMPORARY_RESIDENT_FIRST_DIGIT = 9;
   // Map Canadian provinces to associated first SIN digits
   var PROVINCES = {
     "AB": [6],
@@ -19,24 +18,11 @@
     "YU": [7]
   };
 
-  var parse = function(sin) {
-    sin = String(sin).replace(/[^\d\.]/g, "");
-    if (sin.length !== SIN_LENGTH) {
-      return errorObject("SIN must be 9 digits long");
-    }
-    var checksum = luhnChecksum(sin);
-    if (checksum % 10 !== 0) {
-      return errorObject("SIN format is invalid");
-    }
-    return {
-      valid: true,
-      normalizedValue: sin,
-      provinces: provincesForSIN(sin),
-      temporaryResident: isTemporaryResident(sin)
-    };
+  var SocialInsuranceNumber = function(sin) {
+    this.sin = sin;
   };
 
-  var generate = function(options) {
+  SocialInsuranceNumber.generate = function(options) {
     options = options || {};
     var startsWith = options.startsWith;
     if (!startsWith) {
@@ -50,6 +36,30 @@
     }
     sinArray.push(checkDigit(sinArray));
     return sinArray.join("");
+  };
+
+  SocialInsuranceNumber.prototype.normalizedValue = function() {
+    this._normalizedValue = this._normalizedValue || String(this.sin).replace(/[^\d\.]/g, "");
+    return this._normalizedValue;
+  };
+
+  SocialInsuranceNumber.prototype.isValid = function() {
+    return luhnChecksum(this.normalizedValue()) % 10 === 0;
+  };
+
+  SocialInsuranceNumber.prototype.isTemporary = function() {
+    return this.normalizedValue().substring(0, 1) === String(TEMPORARY_RESIDENT_FIRST_DIGIT);
+  };
+
+  SocialInsuranceNumber.prototype.provinces = function() {
+    var firstDigit = parseInt(this.normalizedValue().substring(0, 1), 10);
+    var provinces = [];
+    for(var province in PROVINCES) {
+      if (PROVINCES[province].indexOf(firstDigit) >= 0) {
+        provinces.push(province);
+      }
+    }
+    return provinces;
   };
 
   // Fast Luhn checksum code from luhn.js:
@@ -75,28 +85,6 @@
     return checksum % 10 === 0 ? 0 : 10 - checksum;
   };
 
-  var provincesForSIN = function(sin) {
-    var firstDigit = parseInt(sin.substring(0, 1), 10);
-    var provinces = [];
-    for(var province in PROVINCES) {
-      if (PROVINCES[province].indexOf(firstDigit) >= 0) {
-        provinces.push(province);
-      }
-    }
-    return provinces;
-  };
-
-  var isTemporaryResident = function(sin) {
-    return sin.substring(0, 1) === "9";
-  };
-
-  var errorObject = function(message) {
-    return {
-      valid: false,
-      error: message
-    };
-  };
-
   var randomChoice = function(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   };
@@ -107,8 +95,6 @@
 
   SocialInsuranceNumber.PROVINCES = PROVINCES;
   SocialInsuranceNumber.SIN_LENGTH = SIN_LENGTH;
-  SocialInsuranceNumber.parse = parse;
-  SocialInsuranceNumber.generate = generate;
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {

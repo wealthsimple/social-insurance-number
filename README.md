@@ -4,45 +4,57 @@
 
 ## Parsing
 
-Using `.parse(sin)`, you can get the validity and attributes of a SIN number.
+Use the `.isValid()` to determine SIN validity.
 
 ```javascript
-SocialInsuranceNumber.parse(" 130-692-544 ")
-// Returns:
-{
-  valid: true,
-  normalizedValue: "130692544",
-  provinces: ['NB', 'NF', 'NS', 'PE'],
-  temporaryResident: false
-}
+var sin = new SocialInsuranceNumber("130692544");
+sin.isValid();
+// Returns: true
 
-SocialInsuranceNumber.parse("918640897")
-// Returns:
-{
-  valid: true,
-  normalizedValue: "918640897",
-  provinces: [],
-  temporaryResident: true
-}
+sin = new SocialInsuranceNumber("123456789");
+sin.isValid();
+// Returns: false
+```
 
-SocialInsuranceNumber.parse("1234")
-// Returns:
-{
-  valid: false,
-  error: "SIN must be 9 digits long"
-}
+Use `.normalizedValue()` to get the normalized SIN value (all non-digits removed).
 
-SocialInsuranceNumber.parse("123456789")
-// Returns:
-{
-  valid: false,
-  error: "SIN format is invalid"
-}
+```javascript
+var sin = new SocialInsuranceNumber("130-692-544");
+sin.normalizedValue();
+// Returns "130692544"
+
+sin = new SocialInsuranceNumber("  130692544 ");
+sin.normalizedValue();
+// Returns "130692544"
+```
+
+Use `.isTemporary()` to determine if the SIN is associated with a temporary resident.
+
+```javascript
+var sin = new SocialInsuranceNumber("918640897");
+sin.isTemporary();
+// Returns: true
+
+sin = new SocialInsuranceNumber("130692544");
+sin.isTemporary();
+// Returns: false
+```
+
+Use `.provinces()` to get the Canadian provinces associated with the SIN.
+
+```javascript
+var sin = new SocialInsuranceNumber("130692544");
+sin.provinces();
+// Returns: ['NB', 'NF', 'NS', 'PE']
+
+var tempSin = new SocialInsuranceNumber("918640897");
+tempSin.provinces();
+// Returns: []
 ```
 
 ## Generating
 
-Using `.generate([options ])`, you can generate a valid random SIN number.
+Use the `.generate([options ])` class method to generate a valid random SIN number.
 
 ```javascript
 SocialInsuranceNumber.generate()
