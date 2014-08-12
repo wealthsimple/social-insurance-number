@@ -1,6 +1,7 @@
 (function(global) {
   var SocialInsuranceNumber = function() {};
 
+  SIN_LENGTH = 9;
   // Map Canadian provinces to associated first SIN digits
   PROVINCES = {
     "AB": [6],
@@ -17,16 +18,15 @@
     "SK": [6],
     "YU": [7]
   };
-  SocialInsuranceNumber.PROVINCES = PROVINCES;
 
-  SocialInsuranceNumber.parse = function(sin) {
+  var parse = function(sin) {
     var isString = Object.prototype.toString.call(sin) === "[object String]";
     if (!isString) {
       return errorObject("Invalid SIN input provided");
     }
 
     sin = sin.replace(/[^\d\.]/g, "");
-    if (sin.length !== 9) {
+    if (sin.length !== SIN_LENGTH) {
       return errorObject("SIN must be 9 digits long");
     }
 
@@ -50,7 +50,40 @@
     };
   };
 
+  var generate = function(options) {
+    options = options || {};
+    var firstDigit = options.firstDigit;
+    if (!firstDigit) {
+      var province = options.province || randomChoice(Object.keys(PROVINCES));
+      firstDigit = randomChoice(PROVINCES[province]);
+    }
+    var sinArray = [firstDigit];
+    // Generate the next 7 digits randomly
+    while(sinArray.length < (SIN_LENGTH - 1)) {
+      sinArray.push(randomIntBetween(0, 9));
+    }
+    sinArray.push(checkDigit(sinArray));
+    return sinArray.join("");
+  }
 
+  // `partialSin` contains first 8 digits of the SIN for which to calculate check digit.
+  var checkDigit = function(partialSin) {
+    var reversedSin = partialSin.slice().reverse(),
+        position = 0,
+        sum = 0;
+    while(position < (SIN_LENGTH - 1)) {
+      var odd = reversedSin[position] * 2;
+      if (odd > SIN_LENGTH) {
+        odd -= SIN_LENGTH;
+      }
+      sum += odd;
+      if (position !== (SIN_LENGTH - 2)) {
+        sum += reversedSin[position + 1];
+      }
+      position += 2;
+    }
+    return ((Math.floor(sum / 10) + 1) * 10 - sum) % 10;
+  };
 
   /*
     Returns the sum of digits in number.
@@ -83,6 +116,19 @@
       error: message
     };
   };
+
+  var randomChoice = function(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  };
+
+  var randomIntBetween = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  SocialInsuranceNumber.PROVINCES = PROVINCES;
+  SocialInsuranceNumber.SIN_LENGTH = SIN_LENGTH;
+  SocialInsuranceNumber.parse = parse;
+  SocialInsuranceNumber.generate = generate;
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
