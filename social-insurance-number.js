@@ -20,12 +20,7 @@
   };
 
   var parse = function(sin) {
-    var isString = Object.prototype.toString.call(sin) === "[object String]";
-    if (!isString) {
-      return errorObject("Invalid SIN input provided");
-    }
-
-    sin = sin.replace(/[^\d\.]/g, "");
+    sin = String(sin).replace(/[^\d\.]/g, "");
     if (sin.length !== SIN_LENGTH) {
       return errorObject("SIN must be 9 digits long");
     }

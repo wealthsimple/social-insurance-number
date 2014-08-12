@@ -5,7 +5,6 @@ var invalidSinInputs = [
   undefined,
   {},
   true,
-  123456789
 ];
 
 var invalidSinLengths = [
@@ -31,7 +30,6 @@ describe('SocialInsuranceNumber.parse', function() {
     _.each(invalidSinInputs, function(input) {
       var sin = SocialInsuranceNumber.parse(input);
       expect(sin.valid).to.equal(false);
-      expect(sin.error).to.equal("Invalid SIN input provided");
     });
   });
 
