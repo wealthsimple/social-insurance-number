@@ -22,12 +22,12 @@
   SinParser.parse = function(sin) {
     var isString = Object.prototype.toString.call(sin) === "[object String]";
     if (!isString) {
-      return this._errorObject("Invalid SIN input provided");
+      return errorObject("Invalid SIN input provided");
     }
 
     sin = sin.replace(/[^\d\.]/g, "");
     if (sin.length !== 9) {
-      return this._errorObject("SIN must be 9 digits long");
+      return errorObject("SIN must be 9 digits long");
     }
 
     var digits = [],
@@ -35,18 +35,18 @@
     for(var i = 0; i < sinDigits.length; i++) {
       var digit = parseInt(sinDigits[i], 10);
       digit *= i % 2 === 0 ? 1 : 2;
-      digits.push(this._digitalRoot(digit));
+      digits.push(digitalRoot(digit));
     }
 
     var sum = digits.reduce(function(a, b) { return a + b; });
     if (sum % 10 !== 0) {
-      return this._errorObject("SIN format is invalid");
+      return errorObject("SIN format is invalid");
     }
     return {
       valid: true,
       value: sin,
-      provinces: this._provinces(sin),
-      temporary_resident: this._isTemporaryResident(sin)
+      provinces: provincesForSIN(sin),
+      temporary_resident: isTemporaryResident(sin)
     };
   };
 
@@ -55,13 +55,13 @@
     For number >= 10, returns the sum of digits in number.
     e.g. 162 -> 1+6+2 -> 9
   */
-  SinParser._digitalRoot = function(num) {
+  var digitalRoot = function(num) {
     var digits = String(num).split("");
     digits = digits.map(function(d) { return parseInt(d, 10); });
     return digits.reduce(function(a, b) { return a + b; });
   };
 
-  SinParser._provinces = function(sin) {
+  var provincesForSIN = function(sin) {
     var firstDigit = parseInt(sin.substring(0, 1));
     var provinces = [];
     for(var province in PROVINCES) {
@@ -72,11 +72,11 @@
     return provinces;
   };
 
-  SinParser._isTemporaryResident = function(sin) {
+  var isTemporaryResident = function(sin) {
     return sin.substring(0, 1) === "9";
   };
 
-  SinParser._errorObject = function(message) {
+  var errorObject = function(message) {
     return {
       valid: false,
       error: message
