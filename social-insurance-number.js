@@ -37,7 +37,7 @@
       valid: true,
       value: sin,
       provinces: provincesForSIN(sin),
-      temporary_resident: isTemporaryResident(sin)
+      temporaryResident: isTemporaryResident(sin)
     };
   };
 

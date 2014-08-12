@@ -57,15 +57,15 @@ describe('SocialInsuranceNumber.parse', function() {
       expect(sin.valid).to.equal(true);
       expect(sin.value).to.equal("130692544");
       expect(sin.provinces).to.eql(['NB', 'NF', 'NS', 'PE']);
-      expect(sin.temporary_resident).to.equal(false);
+      expect(sin.temporaryResident).to.equal(false);
     });
   });
 
-  it("sets temporary_resident to `true` for a temporary resident", function() {
+  it("sets temporaryResident to `true` for a temporary resident", function() {
     var sin = SocialInsuranceNumber.parse("918 640 897");
     expect(sin.valid).to.equal(true);
     expect(sin.value).to.equal("918640897");
     expect(sin.provinces).to.eql([]);
-    expect(sin.temporary_resident).to.equal(true);
+    expect(sin.temporaryResident).to.equal(true);
   });
 });
