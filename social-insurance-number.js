@@ -48,18 +48,21 @@
   };
 
   SocialInsuranceNumber.prototype.isTemporary = function() {
-    return this.normalizedValue().substring(0, 1) === String(TEMPORARY_RESIDENT_FIRST_DIGIT);
+    return this.firstDigit() === TEMPORARY_RESIDENT_FIRST_DIGIT;
   };
 
   SocialInsuranceNumber.prototype.provinces = function() {
-    var firstDigit = parseInt(this.normalizedValue().substring(0, 1), 10);
     var provinces = [];
     for(var province in PROVINCES) {
-      if (PROVINCES[province].indexOf(firstDigit) >= 0) {
+      if (PROVINCES[province].indexOf(this.firstDigit()) >= 0) {
         provinces.push(province);
       }
     }
     return provinces;
+  };
+
+  SocialInsuranceNumber.prototype.firstDigit = function() {
+    return parseInt(this.normalizedValue().substring(0, 1), 10);
   };
 
   // Fast Luhn checksum code from luhn.js:
@@ -101,7 +104,8 @@
       exports = module.exports = SocialInsuranceNumber;
     }
     exports.SocialInsuranceNumber = SocialInsuranceNumber;
-  } else {
+  }
+  else {
     global.SocialInsuranceNumber = SocialInsuranceNumber;
   }
 })(this);
