@@ -1,6 +1,24 @@
 (function(global) {
   var SinParser = function() {};
 
+  // Map Canadian provinces to associated first SIN digits
+  PROVINCES = {
+    "AB": [6],
+    "BC": [7],
+    "MB": [6],
+    "NB": [1],
+    "NF": [1],
+    "NS": [1],
+    "NT": [6],
+    "NU": [6],
+    "ON": [4, 5],
+    "PE": [1],
+    "QC": [2, 3],
+    "SK": [6],
+    "YU": [7]
+  };
+  SinParser.PROVINCES = PROVINCES;
+
   SinParser.parse = function(sin) {
     var isString = Object.prototype.toString.call(sin) === "[object String]";
     if (!isString) {
@@ -44,19 +62,14 @@
   };
 
   SinParser._provinces = function(sin) {
-    var firstDigit = sin.substring(0, 1);
-    return {
-      "0": [],
-      "1": ["NB", "NF", "NS", "PE"],
-      "2": ["QC"],
-      "3": ["QC"],
-      "4": ["ON"],
-      "5": ["ON"],
-      "6": ["AB", "MB", "SK", "NT", "NU"],
-      "7": ["BC", "YU"],
-      "8": [],
-      "9": []
-    }[firstDigit];
+    var firstDigit = parseInt(sin.substring(0, 1));
+    var provinces = [];
+    for(var province in PROVINCES) {
+      if (PROVINCES[province].indexOf(firstDigit) >= 0) {
+        provinces.push(province);
+      }
+    }
+    return provinces;
   };
 
   SinParser._isTemporaryResident = function(sin) {
