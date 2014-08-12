@@ -8,7 +8,7 @@ module.exports = function(config) {
 
   // list of files / patterns to load in the browser
   files : [
-    'sin-parser.js',
+    'social-insurance-number.js',
     'node_modules/chai/chai.js',
     'node_modules/underscore/underscore.js',
     'test/**/*_test.js'

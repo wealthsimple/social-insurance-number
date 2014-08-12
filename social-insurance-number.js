@@ -1,5 +1,5 @@
 (function(global) {
-  var SinParser = function() {};
+  var SocialInsuranceNumber = function() {};
 
   // Map Canadian provinces to associated first SIN digits
   PROVINCES = {
@@ -17,9 +17,9 @@
     "SK": [6],
     "YU": [7]
   };
-  SinParser.PROVINCES = PROVINCES;
+  SocialInsuranceNumber.PROVINCES = PROVINCES;
 
-  SinParser.parse = function(sin) {
+  SocialInsuranceNumber.parse = function(sin) {
     var isString = Object.prototype.toString.call(sin) === "[object String]";
     if (!isString) {
       return errorObject("Invalid SIN input provided");
@@ -49,6 +49,8 @@
       temporary_resident: isTemporaryResident(sin)
     };
   };
+
+
 
   /*
     Returns the sum of digits in number.
@@ -84,10 +86,10 @@
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = SinParser;
+      exports = module.exports = SocialInsuranceNumber;
     }
-    exports.SinParser = SinParser;
+    exports.SocialInsuranceNumber = SocialInsuranceNumber;
   } else {
-    global.SinParser = SinParser;
+    global.SocialInsuranceNumber = SocialInsuranceNumber;
   }
 })(this);

@@ -26,11 +26,11 @@ var validSins = [
   "130692544"
 ];
 
-describe('SinParser', function() {
+describe('SocialInsuranceNumber', function() {
   describe(".parse", function() {
     it("returns an error object for an invalid input", function() {
       _.each(invalidSinInputs, function(input) {
-        var sin = SinParser.parse(input);
+        var sin = SocialInsuranceNumber.parse(input);
         expect(sin.valid).to.equal(false);
         expect(sin.error).to.equal("Invalid SIN input provided");
       });
@@ -38,7 +38,7 @@ describe('SinParser', function() {
 
     it("returns an error object for an invalid format", function() {
       _.each(invalidSinFormats, function(input) {
-        var sin = SinParser.parse(input);
+        var sin = SocialInsuranceNumber.parse(input);
         expect(sin.valid).to.equal(false);
         expect(sin.error).to.equal("SIN format is invalid");
       });
@@ -46,7 +46,7 @@ describe('SinParser', function() {
 
     it("returns an error object if the SIN value is not 9 digits long", function() {
       _.each(invalidSinLengths, function(input) {
-        var sin = SinParser.parse(input);
+        var sin = SocialInsuranceNumber.parse(input);
         expect(sin.valid).to.equal(false);
         expect(sin.error).to.equal("SIN must be 9 digits long");
       });
@@ -54,7 +54,7 @@ describe('SinParser', function() {
 
     it("returns valid object for a valid format", function() {
       _.each(validSins, function(input) {
-        var sin = SinParser.parse(input);
+        var sin = SocialInsuranceNumber.parse(input);
         expect(sin.valid).to.equal(true);
         expect(sin.value).to.equal("130692544");
         expect(sin.provinces).to.eql(['NB', 'NF', 'NS', 'PE']);
@@ -63,7 +63,7 @@ describe('SinParser', function() {
     });
 
     it("sets temporary_resident to `true` for a temporary resident", function() {
-      var sin = SinParser.parse("918 640 897");
+      var sin = SocialInsuranceNumber.parse("918 640 897");
       expect(sin.valid).to.equal(true);
       expect(sin.value).to.equal("918640897");
       expect(sin.provinces).to.eql([]);
