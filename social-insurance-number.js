@@ -15,7 +15,7 @@
     "PE": [1],
     "QC": [2, 3],
     "SK": [6],
-    "YU": [7]
+    "YT": [7]
   };
 
   var SocialInsuranceNumber = function(sin) {
