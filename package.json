@@ -10,9 +10,6 @@
     "type": "git",
     "url": "git://github.com/wealthsimple/social-insurance-number.git"
   },
-  "engines": {
-    "node": "0.10.x"
-  },
   "license": "MIT",
   "devDependencies": {
     "jest": "^24.5.0"
