@@ -1,10 +1,10 @@
 {
   "name": "social-insurance-number",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Canadian SIN (Social Insurance Number) parser and generator",
   "main": "social-insurance-number.js",
   "scripts": {
-    "test": "node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,11 +15,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "chai": "1.9.1",
-    "karma": "0.12.21",
-    "karma-mocha": "0.1.6",
-    "karma-phantomjs-launcher": "0.1.4",
-    "karma-spec-reporter": "0.0.13",
-    "underscore": "1.6.0"
+    "jest": "^24.5.0"
   }
 }

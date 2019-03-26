@@ -1,6 +1,7 @@
 (function(global) {
   var SIN_LENGTH = 9;
   var TEMPORARY_RESIDENT_FIRST_DIGIT = 9;
+  var BUSINESS_NUMBER_FIRST_DIGIT = 8;
   // Map Canadian provinces to associated first SIN digits
   var PROVINCES = {
     "AB": [6],
@@ -49,6 +50,10 @@
 
   SocialInsuranceNumber.prototype.isTemporary = function() {
     return this.firstDigit() === TEMPORARY_RESIDENT_FIRST_DIGIT;
+  };
+
+  SocialInsuranceNumber.prototype.isBusinessNumber = function() {
+    return this.firstDigit() === BUSINESS_NUMBER_FIRST_DIGIT;
   };
 
   SocialInsuranceNumber.prototype.provinces = function() {
