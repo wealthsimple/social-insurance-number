@@ -10,8 +10,15 @@
     "type": "git",
     "url": "git://github.com/wealthsimple/social-insurance-number.git"
   },
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/github",
+    "@semantic-release/git"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "semantic-release": "^15.13.3"
   }
 }
