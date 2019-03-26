@@ -40,6 +40,18 @@ sin.isTemporary();
 // Returns: false
 ```
 
+Use `.isBusinessNumber()` to determine if the SIN is a Business Number.
+
+```javascript
+var sin = new SocialInsuranceNumber("817640897");
+sin.isBusinessNumber();
+// Returns: true
+
+sin = new SocialInsuranceNumber("130692544");
+sin.isBusinessNumber();
+// Returns: false
+```
+
 Use `.provinces()` to get the Canadian provinces associated with the SIN.
 
 ```javascript
