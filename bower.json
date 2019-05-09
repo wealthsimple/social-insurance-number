@@ -1,7 +1,0 @@
-{
-  "name": "social-insurance-number",
-  "version": "0.0.2",
-  "description": "Canadian SIN (Social Insurance Number) parser and generator",
-  "main": "social-insurance-number.js",
-  "license": "MIT"
-}
