@@ -45,6 +45,10 @@
   };
 
   SocialInsuranceNumber.prototype.isValid = function() {
+    if(this.normalizedValue().length > SIN_LENGTH) {
+      return false;
+    }
+
     return luhnChecksum(this.normalizedValue()) % 10 === 0;
   };
 

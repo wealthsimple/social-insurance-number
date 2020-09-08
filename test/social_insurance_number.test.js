@@ -95,6 +95,11 @@ describe('SocialInsuranceNumber', function() {
         expect(new SocialInsuranceNumber(input).isValid()).toEqual(true);
       });
     });
+
+    it("returns false for a SIN that is too long", function() {
+      const invalidSin =  "1306925445";
+      expect(new SocialInsuranceNumber(invalidSin).isValid()).toEqual(false);
+    });
   });
 
   describe("#isTemporary", function() {
