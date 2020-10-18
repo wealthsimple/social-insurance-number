@@ -73,6 +73,68 @@ describe('SocialInsuranceNumber', function() {
         expect(new SocialInsuranceNumber(sin).isValid()).toEqual(true);
       });
     });
+
+    describe("with `doesNotStartWith` set to a single number", function() {
+      beforeEach(function() {
+        doesNotStartWith = "2";
+        sin = SocialInsuranceNumber.generate({doesNotStartWith: doesNotStartWith});
+      });
+
+      it("does not use that as the first digit", function() {
+        expect(sin.substring(0, 1)).not.toEqual(String(doesNotStartWith));
+      });
+
+      it("generates a valid SIN number", function() {
+        expect(new SocialInsuranceNumber(sin).isValid()).toEqual(true);
+      });
+    });
+
+    describe("with `doesNotStartWith` and `province` set to valid options", function() {
+      beforeEach(function() {
+        doesNotStartWith = "2";
+        sin = SocialInsuranceNumber.generate({doesNotStartWith: doesNotStartWith, province: "QC"});
+      });
+
+      it("respects province and doesNotStartWtih", function() {
+        var validQCStartsWith = 3;
+        expect(sin.substring(0, 1)).toEqual(String(validQCStartsWith));
+      });
+
+      it("generates a valid SIN number", function() {
+        expect(new SocialInsuranceNumber(sin).isValid()).toEqual(true);
+      });
+    });
+
+    describe("with `doesNotStartWith` and `province` set to incompatible options", function() {
+      beforeEach(function() {
+        doesNotStartWith = ["2", "3"];
+      });
+
+      it("should throw an exception", function() {
+        var validQCStartsWith = 3;
+        expect(
+          () => SocialInsuranceNumber.generate({doesNotStartWith: doesNotStartWith, province: "QC"})
+        ).toThrowError("Cannot find a valid number to start with.");
+      });
+
+    });
+
+    describe("with `doesNotStartWith` set to a list of digits", function() {
+      beforeEach(function() {
+        doesNotStartWith = ["2", "3", "4"];
+        sin = SocialInsuranceNumber.generate({doesNotStartWith: doesNotStartWith});
+      });
+
+      it("does not use that as the first digit", function() {
+        expect(sin.substring(0, 1)).not.toEqual(String(doesNotStartWith[0]));
+        expect(sin.substring(0, 1)).not.toEqual(String(doesNotStartWith[1]));
+        expect(sin.substring(0, 1)).not.toEqual(String(doesNotStartWith[2]));
+      });
+
+      it("generates a valid SIN number", function() {
+        expect(new SocialInsuranceNumber(sin).isValid()).toEqual(true);
+      });
+    });
   });
 
   describe("#normalizedValue", function() {

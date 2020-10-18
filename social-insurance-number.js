@@ -25,11 +25,7 @@
 
   SocialInsuranceNumber.generate = function(options) {
     options = options || {};
-    var startsWith = options.startsWith;
-    if (!startsWith) {
-      var province = options.province || randomChoice(Object.keys(PROVINCES));
-      startsWith = randomChoice(PROVINCES[province]);
-    }
+    var startsWith = generateStartsWith(options.startsWith, options.doesNotStartWith, options.province);
     var sinArray = String(startsWith).substring(0, (SIN_LENGTH - 1)).split("");
     // Generate the next digits randomly
     while(sinArray.length < (SIN_LENGTH - 1)) {
@@ -85,6 +81,32 @@
       mul = mul ^ 1;
     }
     return sum % 10;
+  };
+
+  var generateStartsWith = function(startsWith, doesNotStartWith, province) {
+    if (startsWith) return startsWith;
+    if (doesNotStartWith) {
+      // convert a single entry to a list
+      doesNotStartWith = [].concat(doesNotStartWith);
+      var possibleSinPrefixes = [...new Set([].concat.apply([], Object.values(PROVINCES)))];
+
+      if (province) {
+        possibleSinPrefixes = PROVINCES[province];
+      }
+
+      var validStartsWithChoices = possibleSinPrefixes.filter(
+        (prefix) => !doesNotStartWith.includes(String(prefix))
+      );
+
+      if (!validStartsWithChoices.length) {
+        throw "Cannot find a valid number to start with.";
+      }
+
+      return randomChoice(validStartsWithChoices);
+    } else {
+      province = province || randomChoice(Object.keys(PROVINCES));
+      return randomChoice(PROVINCES[province]);
+    }
   };
 
   // `partialSin` has first 8 digits of the SIN for which to calculate check digit.
