@@ -26,9 +26,9 @@ jobs:
     steps:
       - checkout
       - *attach_code_workspace
-      - run:
-          name: Release to NPM
-          command: GH_TOKEN="${DEVTOOLS_GITHUB_API_TOKEN}" yarn run semantic-release
+      - run: |
+          export NPM_TOKEN="${PUBLIC_NPM_TOKEN}"
+          GH_TOKEN="${DEVTOOLS_GITHUB_API_TOKEN}" yarn run semantic-release
 
 workflows:
   version: 2
