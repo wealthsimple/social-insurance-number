@@ -80,4 +80,10 @@ SocialInsuranceNumber.generate({startsWith: "8"});
 
 SocialInsuranceNumber.generate({startsWith: "12345"});
 // Returns a random SIN starting with 12345, e.g. "123453235"
+
+SocialInsuranceNumber.generate({doesNotStartWith: "1"});
+// Returns a random SIN not starting with 1, e.g. "223453235"
+
+SocialInsuranceNumber.generate({doesNotStartWith: ["1", "5"]});
+// Returns a random SIN not starting with 1 or 5, e.g. "323453235"
 ```
