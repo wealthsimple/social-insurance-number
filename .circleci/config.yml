@@ -16,6 +16,7 @@ jobs:
     steps:
       - checkout
       - run: yarn install
+      - run: yarn escheck
       - run: yarn test
       - persist_to_workspace:
           root: .
