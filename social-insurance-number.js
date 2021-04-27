@@ -88,15 +88,17 @@
     if (doesNotStartWith) {
       // convert a single entry to a list
       doesNotStartWith = [].concat(doesNotStartWith);
-      var possibleSinPrefixes = [...new Set([].concat.apply([], Object.values(PROVINCES)))];
+      var possibleSinPrefixes = Array.from(new Set([].concat.apply([], Object.values(PROVINCES))));
 
       if (province) {
         possibleSinPrefixes = PROVINCES[province];
       }
 
-      var validStartsWithChoices = possibleSinPrefixes.filter(
-        (prefix) => !doesNotStartWith.includes(String(prefix))
-      );
+      var filter = function(prefix) {
+        return !doesNotStartWith.includes(String(prefix))
+      }
+
+      var validStartsWithChoices = possibleSinPrefixes.filter(filter);
 
       if (!validStartsWithChoices.length) {
         throw "Cannot find a valid number to start with.";
