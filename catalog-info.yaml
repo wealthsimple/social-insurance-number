@@ -1,0 +1,11 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: social-insurance-number
+  description: Canadian SIN (Social Insurance Number) parser and generator
+  tags:
+    - javascript
+spec:
+  type: other
+  lifecycle: production
