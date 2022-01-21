@@ -1,0 +1,20 @@
+name: 'Close stale PRs'
+on:
+  schedule:
+    - cron: '30 6 * * *' # 6:30 am UTC: 1:30 am EST
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v4
+        with:
+          days-before-stale: 30
+          days-before-close: 60
+          stale-pr-message: >
+            This issue has been automatically marked as stale because it has not had
+            recent activity. It will be closed if no further activity occurs.
+          close-pr-message: >
+            This issue has been automatically closed because it has had no activity
+            for over 90 days. Please re-open if you feel this was done in error.
+          exempt-pr-labels: 'dependabot,depfu,dependencies,security'
