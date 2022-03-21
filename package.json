@@ -21,6 +21,6 @@
   "devDependencies": {
     "es-check": "^5.2.3",
     "jest": "^24.5.0",
-    "semantic-release": "^15.13.3"
+    "semantic-release": "^17.2.3"
   }
 }
