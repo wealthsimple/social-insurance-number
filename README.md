@@ -1,5 +1,13 @@
 # social-insurance-number [![Default](https://github.com/wealthsimple/social-insurance-number/actions/workflows/default.yml/badge.svg)](https://github.com/wealthsimple/social-insurance-number/actions/workflows/default.yml) [![Code Climate](https://codeclimate.com/github/wealthsimple/social-insurance-number/badges/gpa.svg)](https://codeclimate.com/github/wealthsimple/social-insurance-number)
 
+## Notice
+This repo is now **archived**. The library has been moved into  [client-core](https://github.com/wealthsimple/client-core/tree/master/packages/social-insurance-number). 
+
+If you are using the public version of this package that is published on the yarn registry, please switch over to using the private version of this package that is published on Nexus. You can do this using: 
+`yarn remove social-insurance-number && yarn add @wealthsimple/social-insurance-number`.
+
+---
+
 `social-insurance-number` is a Canadian SIN (Social Insurance Number) parser and generator for the browser and Node.js.
 
 ## Parsing
